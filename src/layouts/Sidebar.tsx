@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import tclLogo from '../assets/tcl-logo.png'
 import {
   LayoutDashboard, Zap, FileText, DollarSign, RefreshCw, Clipboard, TrendingUp,
   Bot, Download, ShoppingCart, CreditCard, HardHat, FolderOpen, Users, Building2,
@@ -63,7 +64,7 @@ export function Sidebar() {
       {/* Logo */}
       <div className="flex items-center justify-between px-3 py-3 border-b border-white/10 min-h-[64px]">
         <div className="flex-1 min-w-0">
-          <img src="/tcl-logo.png" alt="TCL Electrical & Lighting" className="h-8 w-auto object-contain mb-1.5" style={{ filter: 'brightness(0) invert(1)' }} />
+          <img src={tclLogo} alt="TCL Electrical & Lighting" className="h-8 w-auto object-contain mb-1.5" style={{ filter: 'brightness(0) invert(1)' }} />
           <div className="text-[11px] text-white/60 tracking-tight">Finance IQ Platform</div>
         </div>
         <div className="flex flex-col gap-0.5">
