@@ -47,9 +47,10 @@ function makeEntry(ade: 'ARIA-AR' | 'ARIA-AP'): ActivityEntry {
 }
 
 export function useAIEngine() {
-  const { arRunning, apRunning } = useApp();
+  const { arRunning, apRunning, incrementARStats, incrementAPStats, setLastARAction, setLastAPAction } = useApp();
   const [feed, setFeed] = useState<ActivityEntry[]>(LIVE_ACTIVITY.slice(0, 8));
   const [isProcessing, setIsProcessing] = useState(false);
+  const [flashId, setFlashId] = useState<string | null>(null);
   const intervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const tick = useCallback(() => {
@@ -59,9 +60,18 @@ export function useAIEngine() {
       ? (Math.random() > 0.5 ? 'ARIA-AR' : 'ARIA-AP')
       : arRunning ? 'ARIA-AR' : 'ARIA-AP';
     const entry = makeEntry(ade);
+    const dollars = Math.floor(Math.random() * 45000) + 1000;
+    if (ade === 'ARIA-AR') {
+      incrementARStats(dollars);
+      setLastARAction(entry.action);
+    } else {
+      incrementAPStats(dollars);
+      setLastAPAction(entry.action);
+    }
     setFeed(prev => [entry, ...prev].slice(0, 20));
-    setTimeout(() => setIsProcessing(false), 1500);
-  }, [arRunning, apRunning]);
+    setFlashId(entry.id);
+    setTimeout(() => { setIsProcessing(false); setFlashId(null); }, 1500);
+  }, [arRunning, apRunning, incrementARStats, incrementAPStats, setLastARAction, setLastAPAction]);
 
   useEffect(() => {
     if (!arRunning && !apRunning) {
@@ -69,12 +79,12 @@ export function useAIEngine() {
       return;
     }
     const schedule = () => {
-      const delay = 15000 + Math.random() * 75000; // 15-90s
+      const delay = 3000 + Math.random() * 7000; // 3-10s demo speed
       intervalRef.current = setTimeout(() => { tick(); schedule(); }, delay);
     };
     schedule();
     return () => { if (intervalRef.current) clearTimeout(intervalRef.current); };
   }, [arRunning, apRunning, tick]);
 
-  return { feed, isProcessing };
+  return { feed, isProcessing, flashId };
 }

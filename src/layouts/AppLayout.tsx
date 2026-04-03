@@ -44,15 +44,25 @@ function DemoBanner() {
 }
 
 function StatusBar() {
+  const { arRunning, apRunning, arStats, apStats } = useApp()
+  const activeCount = [arRunning, apRunning].filter(Boolean).length
+  const totalActions = arStats.actions + apStats.actions
   return (
     <div className="fixed bottom-0 left-[240px] right-0 h-8 bg-white border-t border-[#E2E8F0] flex items-center px-4 text-xs text-[#94A3B8] max-lg:left-0">
       <span>Finance IQ Platform v2.4.1</span>
       <span className="mx-2">|</span>
       <span>TCL Electrical &amp; Lighting</span>
       <span className="mx-2">|</span>
-      <span className="text-green-600 font-medium">2 ADEs Running</span>
+      {activeCount > 0 ? (
+        <span className="text-green-600 font-medium flex items-center gap-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+          {activeCount} ADE{activeCount > 1 ? 's' : ''} Running
+        </span>
+      ) : (
+        <span className="text-yellow-600 font-medium">All ADEs Paused</span>
+      )}
       <span className="mx-2">|</span>
-      <span>Last Sync: 2 min ago</span>
+      <span>{totalActions} actions today</span>
       <span className="mx-2">|</span>
       <span className="text-green-600">● All Systems Operational</span>
       <span className="ml-auto text-[#94A3B8]">Powered by Neuralogic Group</span>

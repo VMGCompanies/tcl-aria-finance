@@ -7,6 +7,7 @@ import { KPICard } from '../../components/ui/KPICard'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { AIActivityFeed } from '../../components/shared/AIActivityFeed'
+import { ADELivePanel } from '../../components/shared/ADELivePanel'
 import { useAIEngine } from '../../hooks/useAIEngine'
 import { formatCurrency } from '../../lib/utils'
 import { AR_SUMMARY, AP_SUMMARY } from '../../data'
@@ -82,6 +83,8 @@ export function ExecutiveDashboard() {
           </div>
         }
       />
+
+      <ADELivePanel />
 
       {/* KPI Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">

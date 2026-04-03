@@ -18,3 +18,9 @@ body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background: #F7F8
   .ai-border-pulse { animation: aiBorderPulse 2s ease-in-out infinite; border-left: 3px solid #2563EB; }
   @keyframes aiBorderPulse { 0%,100%{border-left-color:#2563EB;} 50%{border-left-color:#93C5FD;} }
 }
+
+@keyframes ade-scan {
+  0% { transform: translateX(-100%); width: 40%; }
+  50% { transform: translateX(160%); width: 60%; }
+  100% { transform: translateX(300%); width: 40%; }
+}
